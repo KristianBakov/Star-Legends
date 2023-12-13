@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
     //set up player actions
     private IA_Player playerActions;
+    private Rigidbody rb;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -32,8 +34,14 @@ public class PlayerController : MonoBehaviour
     private void HandleMovement()
     {
 
-        Vector3 movementVector = transform.right * playerActions.Player.Movement.ReadValue<Vector2>() + transform.forward * playerActions.Player.Movement.ReadValue<Vector2>();
-        characterController.Move(movementVector * movementSpeed * Time.deltaTime);
+        Vector3 movementInputDir = playerActions.Player.Movement.ReadValue<Vector2>();
+        Vector3 movement = new Vector3(movementInputDir.x, 0, movementInputDir.y);
+        characterController.Move(movement * movementSpeed * Time.deltaTime);
+    }
+
+    private void HandleMouseLook()
+    {
+
     }
 
     private void OnEnable()
