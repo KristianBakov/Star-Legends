@@ -16,6 +16,7 @@ TagManager:
   - Wood (Static)
   - Dirt (Static)
   - Wood
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Ground
   - Wall
   - First Person View
   - Character
