@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded { get; private set; } = false;
     public bool isWalking { get; private set; } = false;
     public bool isJumping { get; private set; } = false;
+    public bool isCrouching { get; private set; } = false;
+    public bool isCrouchingUnderObstacle { get; private set; } = false;
     [System.NonSerialized] public Vector3 jumpVelocity = Vector3.zero;
     private CharacterController characterController;
     //set up player actions
@@ -50,10 +53,24 @@ public class PlayerController : MonoBehaviour
         Vector3 movementInput = playerActions.Player.Movement.ReadValue<Vector2>();
 
         isWalking = playerActions.Player.Run.ReadValue<float>() == 0 ? false : true;
+        isCrouching = playerActions.Player.Crouch.ReadValue<float>() == 0 ? false : true;
+
+        if(isCrouching)
+        {
+            HandleCrouching();
+        }
+        else
+        {
+            HandleStand();
+        }
 
         Vector3 movement = transform.right * movementInput.x + transform.forward * movementInput.y;
 
-        if (isWalking)
+        if (isCrouching)
+        {
+            characterController.Move(movement * playerStats.crouchingMovementSpeed * Time.deltaTime);
+        }
+        else if (isWalking)
         {
             characterController.Move(movement * playerStats.walkingMovementSpeed * Time.deltaTime);
         }
@@ -61,6 +78,51 @@ public class PlayerController : MonoBehaviour
         { 
             characterController.Move(movement * playerStats.runningMovementSpeed * Time.deltaTime); 
         }
+    }
+
+    private void HandleStand()
+    {
+        if(characterController.height < playerStats.standingHeightY)
+        {
+            float lastHeight = characterController.height;
+
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, Vector3.up, out hit, playerStats.standingHeightY))
+            {
+                UpdateCharacterHeight(hit.distance);
+                isCrouchingUnderObstacle = true;
+                return;
+            }
+
+            UpdateCharacterHeight(playerStats.standingHeightY);
+            isCrouchingUnderObstacle = false;
+
+            if (characterController.height + 0.05f >= playerStats.standingHeightY)
+            {
+                characterController.height = playerStats.standingHeightY;
+            }
+
+            transform.position += new Vector3(0, (characterController.height - lastHeight) / 2, 0);
+        }
+    }
+
+    private void HandleCrouching()
+    {
+       if (isCrouchingUnderObstacle) return;
+       if(characterController.height > playerStats.crouchingHeightY)
+        {
+            UpdateCharacterHeight(playerStats.crouchingHeightY);
+
+            if(characterController.height - 0.05f <= playerStats.crouchingHeightY)
+            {
+                characterController.height = playerStats.crouchingHeightY;
+            }
+        }
+    }
+
+    private void UpdateCharacterHeight(float newHeight)
+    {
+        characterController.height = Mathf.Lerp(characterController.height, newHeight, Time.deltaTime * playerStats.crouchTransitionSpeed);
     }
 
     private void HandleMouseLook()
@@ -75,6 +137,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJumpInput()
     {
+        if(isCrouchingUnderObstacle) return;
         bool isTryingToJump = playerActions.Player.Jump.ReadValue<float>() == 0 ? false : true;
         isJumping = isGrounded && isTryingToJump;
 

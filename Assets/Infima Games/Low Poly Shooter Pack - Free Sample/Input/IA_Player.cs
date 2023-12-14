@@ -170,6 +170,15 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f8800df-2ebf-42a5-8fdc-0085fe4d95b3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,7 +306,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e60493f8-e05e-437f-99af-9b031cdd3c0f"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -535,6 +544,28 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""action"": ""Tutorial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6223950-51b0-4268-b2be-cfc795c59d09"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""New control scheme"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43cb2e17-14bb-4804-9502-707d8e0acdca"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""New control scheme"",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -571,6 +602,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         m_Player_TimeSpeedDown = m_Player.FindAction("Time Speed Down", throwIfNotFound: true);
         m_Player_TimeSpeedToggle = m_Player.FindAction("Time Speed Toggle", throwIfNotFound: true);
         m_Player_Tutorial = m_Player.FindAction("Tutorial", throwIfNotFound: true);
+        m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -648,6 +680,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TimeSpeedDown;
     private readonly InputAction m_Player_TimeSpeedToggle;
     private readonly InputAction m_Player_Tutorial;
+    private readonly InputAction m_Player_Crouch;
     public struct PlayerActions
     {
         private @IA_Player m_Wrapper;
@@ -668,6 +701,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         public InputAction @TimeSpeedDown => m_Wrapper.m_Player_TimeSpeedDown;
         public InputAction @TimeSpeedToggle => m_Wrapper.m_Player_TimeSpeedToggle;
         public InputAction @Tutorial => m_Wrapper.m_Player_Tutorial;
+        public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -725,6 +759,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @Tutorial.started += instance.OnTutorial;
             @Tutorial.performed += instance.OnTutorial;
             @Tutorial.canceled += instance.OnTutorial;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -777,6 +814,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @Tutorial.started -= instance.OnTutorial;
             @Tutorial.performed -= instance.OnTutorial;
             @Tutorial.canceled -= instance.OnTutorial;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -821,5 +861,6 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         void OnTimeSpeedDown(InputAction.CallbackContext context);
         void OnTimeSpeedToggle(InputAction.CallbackContext context);
         void OnTutorial(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
 }
