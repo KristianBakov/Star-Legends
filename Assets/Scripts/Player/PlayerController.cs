@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+
     [SerializeField] Camera PlayerCamera;
     [SerializeField] Transform groundCheckTransform;
     [SerializeField] LayerMask groundLayerMask;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     //set up player actions
     public IA_Player playerActions;
     private PlayerStats playerStats;
+    private const float shootRotationoffsetDampening = 1.2f;
 
     private void Awake()
     {
@@ -132,7 +134,17 @@ public class PlayerController : MonoBehaviour
         Vector2 mouseInput = playerActions.Player.Look.ReadValue<Vector2>();
         xRotation -= mouseInput.y * mouseSensitivity.y;
         xRotation = Mathf.Clamp(xRotation, -45f, 45f);
-        PlayerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        if (gunRotation != Vector3.zero)
+        {
+            PlayerCamera.transform.localRotation = Quaternion.Euler(xRotation + gunRotation.x / shootRotationoffsetDampening,
+                gunRotation.y / shootRotationoffsetDampening, gunRotation.z / shootRotationoffsetDampening);
+        }
+        else
+        {
+            PlayerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        }
+
         transform.Rotate(Vector3.up * mouseInput.x * mouseSensitivity.x);
 
     }
@@ -155,6 +167,11 @@ public class PlayerController : MonoBehaviour
         jumpVelocity.y += playerStats.gravity * Time.deltaTime;
         characterController.Move(jumpVelocity * Time.deltaTime);
     }
+    public void SetGunRotation(Vector3 _gunRotation)
+    {
+        gunRotation = _gunRotation;
+        handsTransform.localRotation = Quaternion.Euler(gunRotation);
+    }
 
     private void OnEnable()
     {
@@ -166,9 +183,5 @@ public class PlayerController : MonoBehaviour
         playerActions.Player.Disable();
     }
 
-    public void SetGunRotation(Vector3 _gunRotation)
-    {
-        gunRotation = _gunRotation;
-        handsTransform.localRotation = Quaternion.Euler(gunRotation);
-    }
+
 }

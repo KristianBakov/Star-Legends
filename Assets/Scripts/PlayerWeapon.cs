@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    [SerializeField] Animator animator;
+    [SerializeField] Animator handAnimator;
     [SerializeField] Transform firePoint;
     [SerializeField] Camera playerCamera;
     [SerializeField] ParticleSystem muzzleFlash;
@@ -44,6 +44,7 @@ public class PlayerWeapon : MonoBehaviour
         if(Time.time - lastTimeShot >= 1 / equippedWeapon.fireRatePerSecond)
         {
             //we can shoot again
+            PlayFireAnimation();
 
             HandleGunRecoil();
 
@@ -80,6 +81,11 @@ public class PlayerWeapon : MonoBehaviour
                 currentRecoilIndex = 0;
             }
         }
+    }
+
+    private void PlayFireAnimation()
+    {
+        handAnimator.Play("Fire", 0, 0f);
     }
 
     //private void OnDrawGizmos()
