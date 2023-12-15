@@ -90,10 +90,10 @@ public class PlayerWeapon : MonoBehaviour
         gunAnimator.Play("Fire");
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    equippedWeapon = new Vandal();
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawRay(firePoint.transform.position, firePoint.transform.TransformDirection(Vector3.forward) * equippedWeapon.falloffDistance);
-    //}
+    private void OnDrawGizmos()
+    {
+        equippedWeapon = new Vandal();
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(firePoint.transform.position, firePoint.transform.TransformDirection(Vector3.forward) * equippedWeapon.falloffDistance);
+    }
 }
