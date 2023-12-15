@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Camera PlayerCamera;
     [SerializeField] Transform groundCheckTransform;
     [SerializeField] LayerMask groundLayerMask;
+    [SerializeField] Transform handsTransform;
     public Vector2 mouseSensitivity = new Vector2(1, 1);
     public float xRotation { get; private set; } = 0f;
     public bool isGrounded { get; private set; } = false;
@@ -16,10 +17,11 @@ public class PlayerController : MonoBehaviour
     public bool isJumping { get; private set; } = false;
     public bool isCrouching { get; private set; } = false;
     public bool isCrouchingUnderObstacle { get; private set; } = false;
+    public Vector3 gunRotation { get; private set; } = Vector3.zero;
     [System.NonSerialized] public Vector3 jumpVelocity = Vector3.zero;
     private CharacterController characterController;
     //set up player actions
-    private IA_Player playerActions;
+    public IA_Player playerActions;
     private PlayerStats playerStats;
 
     private void Awake()
@@ -162,5 +164,11 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         playerActions.Player.Disable();
+    }
+
+    public void SetGunRotation(Vector3 _gunRotation)
+    {
+        gunRotation = _gunRotation;
+        handsTransform.localRotation = Quaternion.Euler(gunRotation);
     }
 }

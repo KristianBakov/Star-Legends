@@ -10,6 +10,8 @@ namespace InfimaGames.LowPolyShooterPack
     public class Weapon : WeaponBehaviour
     {
         #region FIELDS SERIALIZED
+
+        public Camera PlayerCamera;
         
         [Header("Firing")]
 
@@ -144,7 +146,7 @@ namespace InfimaGames.LowPolyShooterPack
             //Cache the player character.
             characterBehaviour = gameModeService.GetPlayerCharacter();
             //Cache the world camera. We use this in line traces.
-            playerCamera = characterBehaviour.GetCameraWorld().transform;
+            playerCamera = PlayerCamera.transform;
         }
         protected override void Start()
         {

@@ -61,56 +61,56 @@ namespace InfimaGames.LowPolyShooterPack
 
         #endregion
         
-        #region UNITY
+     //   #region UNITY
 
         /// <summary>
         /// On State Enter.
         /// </summary>
-        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-        {
-            //We need to get the character component.
-            playerCharacter ??= ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter();
+    //    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //    {
+    //        //We need to get the character component.
+    //        playerCharacter ??= ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter();
 
-            //Get Inventory.
-            playerInventory ??= playerCharacter.GetInventory();
+    //        //Get Inventory.
+    //        //playerInventory ??= playerCharacter.GetInventory();
 
-            //Try to get the equipped weapon's Weapon component.
-            if (!(playerInventory.GetEquipped() is { } weaponBehaviour))
-                return;
+    //        //Try to get the equipped weapon's Weapon component.
+    //        if (!(playerInventory.GetEquipped() is { } weaponBehaviour))
+    //            return;
             
-            //Try grab a reference to the sound managing service.
-            audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
+    //        //Try grab a reference to the sound managing service.
+    //        audioManagerService ??= ServiceLocator.Current.Get<IAudioManagerService>();
 
-            #region Select Correct Clip To Play
+    //        #region Select Correct Clip To Play
 
-            //Switch.
-            AudioClip clip = soundType switch
-            {
-                //Holster.
-                SoundType.Holster => weaponBehaviour.GetAudioClipHolster(),
-                //Unholster.
-                SoundType.Unholster => weaponBehaviour.GetAudioClipUnholster(),
+    //        //Switch.
+    //        AudioClip clip = soundType switch
+    //        {
+    //            //Holster.
+    //            SoundType.Holster => weaponBehaviour.GetAudioClipHolster(),
+    //            //Unholster.
+    //            SoundType.Unholster => weaponBehaviour.GetAudioClipUnholster(),
                 
-                //Reload.
-                SoundType.Reload => weaponBehaviour.GetAudioClipReload(),
-                //Reload Empty.
-                SoundType.ReloadEmpty => weaponBehaviour.GetAudioClipReloadEmpty(),
+    //            //Reload.
+    //            SoundType.Reload => weaponBehaviour.GetAudioClipReload(),
+    //            //Reload Empty.
+    //            SoundType.ReloadEmpty => weaponBehaviour.GetAudioClipReloadEmpty(),
                 
-                //Fire.
-                SoundType.Fire => weaponBehaviour.GetAudioClipFire(),
-                //Fire Empty.
-                SoundType.FireEmpty => weaponBehaviour.GetAudioClipFireEmpty(),
+    //            //Fire.
+    //            SoundType.Fire => weaponBehaviour.GetAudioClipFire(),
+    //            //Fire Empty.
+    //            SoundType.FireEmpty => weaponBehaviour.GetAudioClipFireEmpty(),
                 
-                //Default.
-                _ => default
-            };
+    //            //Default.
+    //            _ => default
+    //        };
 
-            #endregion
+    //        #endregion
 
-            //Play with some delay. Granted, if the delay is set to zero, this will just straight-up play!
-            audioManagerService.PlayOneShotDelayed(clip, audioSettings, delay);
-        }
+    //        //Play with some delay. Granted, if the delay is set to zero, this will just straight-up play!
+    //        audioManagerService.PlayOneShotDelayed(clip, audioSettings, delay);
+    //    }
         
-        #endregion
+    //    #endregion
     }
 }

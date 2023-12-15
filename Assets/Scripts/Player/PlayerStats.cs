@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
     public float crouchingMovementSpeed { get; private set; } = 2f;
     public float gravity { get; private set; } = -21f;
     public float jumpHeight { get; private set; } = 1.5f;
-    public float standingHeightY = 2f;
-    public float crouchingHeightY = 0.5f;
-    public float crouchTransitionSpeed = 10f;
+    public float standingHeightY { get; private set; } = 2f;
+    public float crouchingHeightY { get; private set; } = 0.5f;
+    public float crouchTransitionSpeed { get; private set; } = 10f;
 }
