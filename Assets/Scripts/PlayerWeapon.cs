@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] Animator handAnimator;
+    [SerializeField] Animator gunAnimator;
     [SerializeField] Transform firePoint;
     [SerializeField] Camera playerCamera;
     [SerializeField] ParticleSystem muzzleFlash;
@@ -53,7 +54,6 @@ public class PlayerWeapon : MonoBehaviour
                 firePoint.transform.TransformDirection(Vector3.forward),
                 out hit, equippedWeapon.falloffDistance))
             {
-                Debug.Log("Hit " + hit.collider.gameObject.name);
                 Instantiate(wallHitDecalPrefab, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
             }
 
@@ -85,7 +85,9 @@ public class PlayerWeapon : MonoBehaviour
 
     private void PlayFireAnimation()
     {
-        handAnimator.Play("Fire", 0, 0f);
+
+        handAnimator.Play("Fire");
+        gunAnimator.Play("Fire");
     }
 
     //private void OnDrawGizmos()
