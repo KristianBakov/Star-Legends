@@ -179,6 +179,15 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AbilityE"",
+                    ""type"": ""Button"",
+                    ""id"": ""33fedd92-1a5e-4681-b699-a44dc9a901eb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -566,6 +575,17 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b7d92d6-ae0a-42e1-9aeb-5ce8b1680c0a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""New control scheme"",
+                    ""action"": ""AbilityE"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -603,6 +623,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         m_Player_TimeSpeedToggle = m_Player.FindAction("Time Speed Toggle", throwIfNotFound: true);
         m_Player_Tutorial = m_Player.FindAction("Tutorial", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
+        m_Player_AbilityE = m_Player.FindAction("AbilityE", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -681,6 +702,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_TimeSpeedToggle;
     private readonly InputAction m_Player_Tutorial;
     private readonly InputAction m_Player_Crouch;
+    private readonly InputAction m_Player_AbilityE;
     public struct PlayerActions
     {
         private @IA_Player m_Wrapper;
@@ -702,6 +724,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         public InputAction @TimeSpeedToggle => m_Wrapper.m_Player_TimeSpeedToggle;
         public InputAction @Tutorial => m_Wrapper.m_Player_Tutorial;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
+        public InputAction @AbilityE => m_Wrapper.m_Player_AbilityE;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -762,6 +785,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
+            @AbilityE.started += instance.OnAbilityE;
+            @AbilityE.performed += instance.OnAbilityE;
+            @AbilityE.canceled += instance.OnAbilityE;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -817,6 +843,9 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
+            @AbilityE.started -= instance.OnAbilityE;
+            @AbilityE.performed -= instance.OnAbilityE;
+            @AbilityE.canceled -= instance.OnAbilityE;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -862,5 +891,6 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         void OnTimeSpeedToggle(InputAction.CallbackContext context);
         void OnTutorial(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnAbilityE(InputAction.CallbackContext context);
     }
 }

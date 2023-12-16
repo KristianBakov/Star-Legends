@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public bool isJumping { get; private set; } = false;
     public bool isCrouching { get; private set; } = false;
     public bool isCrouchingUnderObstacle { get; private set; } = false;
+    public Vector3 movementVector = Vector3.zero;
+    public Vector3 inputVector = Vector3.zero;
     public Vector3 gunRotation { get; private set; } = Vector3.zero;
     [System.NonSerialized] public Vector3 jumpVelocity = Vector3.zero;
     private CharacterController characterController;
@@ -54,7 +52,7 @@ public class PlayerController : MonoBehaviour
     private void HandleMovement()
     {
 
-        Vector3 movementInput = playerActions.Player.Movement.ReadValue<Vector2>();
+        inputVector = playerActions.Player.Movement.ReadValue<Vector2>();
 
         isWalking = playerActions.Player.Run.ReadValue<float>() == 0 ? false : true;
         isCrouching = playerActions.Player.Crouch.ReadValue<float>() == 0 ? false : true;
@@ -68,19 +66,19 @@ public class PlayerController : MonoBehaviour
             HandleStand();
         }
 
-        Vector3 movement = transform.right * movementInput.x + transform.forward * movementInput.y;
+        movementVector = transform.right * inputVector.x + transform.forward * inputVector.y;
 
         if (isCrouching)
         {
-            characterController.Move(movement * playerStats.crouchingMovementSpeed * Time.deltaTime);
+            characterController.Move(movementVector * playerStats.crouchingMovementSpeed * Time.deltaTime);
         }
         else if (isWalking)
         {
-            characterController.Move(movement * playerStats.walkingMovementSpeed * Time.deltaTime);
+            characterController.Move(movementVector * playerStats.walkingMovementSpeed * Time.deltaTime);
         }
         else 
         { 
-            characterController.Move(movement * playerStats.runningMovementSpeed * Time.deltaTime); 
+            characterController.Move(movementVector * playerStats.runningMovementSpeed * Time.deltaTime); 
         }
     }
 
