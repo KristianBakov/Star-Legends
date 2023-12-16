@@ -188,6 +188,24 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AbilityC"",
+                    ""type"": ""Button"",
+                    ""id"": ""30a7b967-2cd3-44c2-8e9f-1af47e8728e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AbilityQ"",
+                    ""type"": ""Button"",
+                    ""id"": ""4716d295-ec54-49fe-98fb-b476ecd9ca11"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -586,6 +604,28 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""action"": ""AbilityE"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b97a8589-c860-4b12-9471-c0b5372754f4"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""New control scheme"",
+                    ""action"": ""AbilityC"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03401241-5c8b-43ce-8459-3874e5459f44"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""New control scheme"",
+                    ""action"": ""AbilityQ"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -624,6 +664,8 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         m_Player_Tutorial = m_Player.FindAction("Tutorial", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_AbilityE = m_Player.FindAction("AbilityE", throwIfNotFound: true);
+        m_Player_AbilityC = m_Player.FindAction("AbilityC", throwIfNotFound: true);
+        m_Player_AbilityQ = m_Player.FindAction("AbilityQ", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -703,6 +745,8 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Tutorial;
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_AbilityE;
+    private readonly InputAction m_Player_AbilityC;
+    private readonly InputAction m_Player_AbilityQ;
     public struct PlayerActions
     {
         private @IA_Player m_Wrapper;
@@ -725,6 +769,8 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         public InputAction @Tutorial => m_Wrapper.m_Player_Tutorial;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
         public InputAction @AbilityE => m_Wrapper.m_Player_AbilityE;
+        public InputAction @AbilityC => m_Wrapper.m_Player_AbilityC;
+        public InputAction @AbilityQ => m_Wrapper.m_Player_AbilityQ;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -788,6 +834,12 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @AbilityE.started += instance.OnAbilityE;
             @AbilityE.performed += instance.OnAbilityE;
             @AbilityE.canceled += instance.OnAbilityE;
+            @AbilityC.started += instance.OnAbilityC;
+            @AbilityC.performed += instance.OnAbilityC;
+            @AbilityC.canceled += instance.OnAbilityC;
+            @AbilityQ.started += instance.OnAbilityQ;
+            @AbilityQ.performed += instance.OnAbilityQ;
+            @AbilityQ.canceled += instance.OnAbilityQ;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -846,6 +898,12 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
             @AbilityE.started -= instance.OnAbilityE;
             @AbilityE.performed -= instance.OnAbilityE;
             @AbilityE.canceled -= instance.OnAbilityE;
+            @AbilityC.started -= instance.OnAbilityC;
+            @AbilityC.performed -= instance.OnAbilityC;
+            @AbilityC.canceled -= instance.OnAbilityC;
+            @AbilityQ.started -= instance.OnAbilityQ;
+            @AbilityQ.performed -= instance.OnAbilityQ;
+            @AbilityQ.canceled -= instance.OnAbilityQ;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -892,5 +950,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
         void OnTutorial(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnAbilityE(InputAction.CallbackContext context);
+        void OnAbilityC(InputAction.CallbackContext context);
+        void OnAbilityQ(InputAction.CallbackContext context);
     }
 }

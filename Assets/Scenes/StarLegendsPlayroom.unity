@@ -287,7 +287,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 0
   startDelay:
@@ -5920,14 +5920,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDashing: 0
-  availableDashAttempts: 50
+  isThrowingSmoke: 0
+  availableDashAttempts: 2
   dashSpeed: 30
   dashDuration: 0.4
+  playerCamera: {fileID: 2081676268}
   forwardDashParticleSystem: {fileID: 1877763194}
   backwardDashParticleSystem: {fileID: 29024707}
   leftDashParticleSystem: {fileID: 452990475}
   rightDashParticleSystem: {fileID: 741655186}
-  dashAttempts: 0
+  smokeProjectile: {fileID: 6497063576598365018, guid: 13abd283d66a8ae43a5016d728f07d45,
+    type: 3}
+  smokeFiringTransform: {fileID: 1233099527}
 --- !u!1001 &250622321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6882,7 +6886,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 0
   startDelay:
@@ -12661,7 +12665,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 0
   startDelay:
@@ -19285,6 +19289,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1191637237}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1233099526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233099527}
+  m_Layer: 0
+  m_Name: SmokeFiringTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1233099527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233099526}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.09, z: 0.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8195332293220400868}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1235389111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22177,7 +22212,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 0
   startDelay:
@@ -31986,6 +32021,7 @@ Transform:
   m_Children:
   - {fileID: 2496723214003823963}
   - {fileID: 2795493999158696821}
+  - {fileID: 1233099527}
   m_Father: {fileID: 1364625024242288349}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}

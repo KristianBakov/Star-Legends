@@ -2,40 +2,53 @@ using UnityEngine;
 
 public class WindweaverController : MonoBehaviour
 {
-    public bool isDashing;
+    public bool isDashing = false;
+    public bool isThrowingSmoke = false;
+
     public int availableDashAttempts = 50;
     public float dashSpeed = 30f;
     public float dashDuration = 0.4f;
 
+    [SerializeField] Camera playerCamera;
     [SerializeField] ParticleSystem forwardDashParticleSystem;
     [SerializeField] ParticleSystem backwardDashParticleSystem;
     [SerializeField] ParticleSystem leftDashParticleSystem;
     [SerializeField] ParticleSystem rightDashParticleSystem;
+    [SerializeField] GameObject smokeProjectile;
+    [SerializeField] Transform smokeFiringTransform;
 
+    WindweaverSmokeProjectile currentSmokeProjectile;
+    private float lastTimeSmokeEnded = 0f;
+    private float smokeDelaySeconds = 0.3f;
 
-    public int dashAttempts = 0;
+    private int dashAttempts = 0;
     private float dashStartTime;
+
     private PlayerController playerController;
     private CharacterController characterController;
+    private PlayerWeapon playerWeapon;
 
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
+        playerWeapon = GetComponent<PlayerWeapon>();
     }
 
     private void Update()
     {
         HandleDash();
+        HandleSmokeFunction();
     }
 
+    #region Dashing
     private void HandleDash()
     {
         bool isTryingToDash = playerController.playerActions.Player.AbilityE.ReadValue<float>() == 0 ? false : true;
 
         if(isTryingToDash && !isDashing)
         {
-            if(dashAttempts <= availableDashAttempts)
+            if(dashAttempts < availableDashAttempts)
             {
                 OnStartDash();
             }
@@ -110,4 +123,51 @@ public class WindweaverController : MonoBehaviour
         //defaulting to forward
         forwardDashParticleSystem.Play();
     }
+    #endregion
+
+    #region Smoke
+    private void HandleSmokeFunction()
+    {
+        bool isTryingToThrowSmoke = playerController.playerActions.Player.AbilityC.WasPressedThisFrame();
+
+        if(isTryingToThrowSmoke && Time.time - lastTimeSmokeEnded >= smokeDelaySeconds)
+        {
+            Debug.Log("Throw Smoke");
+            ThrowSmoke();
+        }
+
+        if(isThrowingSmoke && isTryingToThrowSmoke)
+        {
+            bool isControlled = playerController.playerActions.Player.AbilityC.WasPerformedThisFrame();
+            Debug.Log("Pressing continiously");
+            currentSmokeProjectile.SetIsControlled(isControlled);
+
+            bool isStoppingControl = playerController.playerActions.Player.AbilityC.WasReleasedThisFrame();
+            if(isStoppingControl)
+            {
+                OnThrowingSmokeEnd();
+            }
+            Debug.Log("is stopping control: " + isStoppingControl);
+        }
+    }
+
+    private void ThrowSmoke()
+    {
+        isThrowingSmoke = true;
+        //playerWeapon.gameObject.SetActive(false);
+
+        GameObject _smokeProjectile = Instantiate(smokeProjectile, smokeFiringTransform.position, playerCamera.transform.rotation);
+        currentSmokeProjectile = _smokeProjectile.GetComponent<WindweaverSmokeProjectile>();
+        currentSmokeProjectile.InitializeValues(false, playerCamera);
+    }
+
+    private void OnThrowingSmokeEnd()
+    {
+        lastTimeSmokeEnded = Time.time;
+        isThrowingSmoke = false;
+        currentSmokeProjectile.SetIsControlled(false);
+
+        currentSmokeProjectile = null;
+    }
+    #endregion
 }
