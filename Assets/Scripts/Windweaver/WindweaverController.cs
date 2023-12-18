@@ -126,30 +126,43 @@ public class WindweaverController : MonoBehaviour
     #endregion
 
     #region Smoke
+    private bool isTryingToThrowSmoke = false;
+    private bool isAbilityCPressed = false;
+
     private void HandleSmokeFunction()
     {
-        bool isTryingToThrowSmoke = playerController.playerActions.Player.AbilityC.WasPressedThisFrame();
+        // Check if the ability C button is being pressed down
+        bool isTryingToThrowSmokeThisFrame = playerController.playerActions.Player.AbilityC.triggered;
 
-        if(isTryingToThrowSmoke && Time.time - lastTimeSmokeEnded >= smokeDelaySeconds)
+        if (isTryingToThrowSmokeThisFrame && Time.time - lastTimeSmokeEnded >= smokeDelaySeconds)
         {
-            Debug.Log("Throw Smoke");
+            Debug.Log("pressed once");
+            isTryingToThrowSmoke = true;
             ThrowSmoke();
         }
 
-        if(isThrowingSmoke && isTryingToThrowSmoke)
+        if (isTryingToThrowSmoke)
         {
-            bool isControlled = playerController.playerActions.Player.AbilityC.WasPerformedThisFrame();
-            Debug.Log("Pressing continiously");
+            bool isControlled = playerController.playerActions.Player.AbilityC.ReadValue<float>() > 0.0f;
+            Debug.Log("Pressing continuously " + isControlled + " test " + isTryingToThrowSmoke);
             currentSmokeProjectile.SetIsControlled(isControlled);
 
-            bool isStoppingControl = playerController.playerActions.Player.AbilityC.WasReleasedThisFrame();
-            if(isStoppingControl)
+            // Check if the ability C button is pressed
+            bool isAbilityCPressedThisFrame = playerController.playerActions.Player.AbilityC.ReadValue<float>() > 0.0f;
+
+            if (isAbilityCPressed && !isAbilityCPressedThisFrame)
             {
+                Debug.Log("is stopping control");
                 OnThrowingSmokeEnd();
+                isTryingToThrowSmoke = false; // Reset the flag when the button is released
             }
-            Debug.Log("is stopping control: " + isStoppingControl);
+
+            isAbilityCPressed = isAbilityCPressedThisFrame;
         }
     }
+
+
+
 
     private void ThrowSmoke()
     {
@@ -163,6 +176,7 @@ public class WindweaverController : MonoBehaviour
 
     private void OnThrowingSmokeEnd()
     {
+         Debug.Log("Smoke end was called");
         lastTimeSmokeEnded = Time.time;
         isThrowingSmoke = false;
         currentSmokeProjectile.SetIsControlled(false);

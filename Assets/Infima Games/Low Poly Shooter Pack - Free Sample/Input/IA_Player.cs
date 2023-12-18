@@ -195,7 +195,7 @@ public partial class @IA_Player: IInputActionCollection2, IDisposable
                     ""id"": ""30a7b967-2cd3-44c2-8e9f-1af47e8728e6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
                 },
                 {
