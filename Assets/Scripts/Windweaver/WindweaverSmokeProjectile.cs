@@ -12,7 +12,7 @@ public class WindweaverSmokeProjectile : MonoBehaviour
     private float downwardForce = -2f;
 
     private const float projectileSpeed = 20f;
-    private const float maxDistance = 70f;
+    private const float maxDistance = 30f;
     private const float downwardForceIncrement = -3.8f;
 
     private void Start()

@@ -126,47 +126,32 @@ public class WindweaverController : MonoBehaviour
     #endregion
 
     #region Smoke
-    private bool isTryingToThrowSmoke = false;
-    private bool isAbilityCPressed = false;
-
     private void HandleSmokeFunction()
     {
-        // Check if the ability C button is being pressed down
-        bool isTryingToThrowSmokeThisFrame = playerController.playerActions.Player.AbilityC.triggered;
-
-        if (isTryingToThrowSmokeThisFrame && Time.time - lastTimeSmokeEnded >= smokeDelaySeconds)
+        bool isTryingToThrowSmoke = playerController.playerActions.Player.AbilityC.triggered;
+        if (isTryingToThrowSmoke && !isThrowingSmoke && Time.time - lastTimeSmokeEnded >= smokeDelaySeconds)
         {
-            Debug.Log("pressed once");
-            isTryingToThrowSmoke = true;
             ThrowSmoke();
         }
 
-        if (isTryingToThrowSmoke)
+        if (isThrowingSmoke && isTryingToThrowSmoke)
         {
-            bool isControlled = playerController.playerActions.Player.AbilityC.ReadValue<float>() > 0.0f;
-            Debug.Log("Pressing continuously " + isControlled + " test " + isTryingToThrowSmoke);
+            bool isControlled = playerController.playerActions.Player.AbilityC.WasPressedThisFrame();
             currentSmokeProjectile.SetIsControlled(isControlled);
 
-            // Check if the ability C button is pressed
-            bool isAbilityCPressedThisFrame = playerController.playerActions.Player.AbilityC.ReadValue<float>() > 0.0f;
-
-            if (isAbilityCPressed && !isAbilityCPressedThisFrame)
+            bool isStoppingControl = playerController.playerActions.Player.AbilityC.WasReleasedThisFrame();
+            if (isStoppingControl)
             {
-                Debug.Log("is stopping control");
                 OnThrowingSmokeEnd();
-                isTryingToThrowSmoke = false; // Reset the flag when the button is released
             }
 
-            isAbilityCPressed = isAbilityCPressedThisFrame;
         }
     }
-
-
-
 
     private void ThrowSmoke()
     {
         isThrowingSmoke = true;
+        //add animation for throwing smoke and disable player weapon
         //playerWeapon.gameObject.SetActive(false);
 
         GameObject _smokeProjectile = Instantiate(smokeProjectile, smokeFiringTransform.position, playerCamera.transform.rotation);
@@ -176,7 +161,6 @@ public class WindweaverController : MonoBehaviour
 
     private void OnThrowingSmokeEnd()
     {
-         Debug.Log("Smoke end was called");
         lastTimeSmokeEnded = Time.time;
         isThrowingSmoke = false;
         currentSmokeProjectile.SetIsControlled(false);
