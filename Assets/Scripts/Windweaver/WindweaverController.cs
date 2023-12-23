@@ -33,6 +33,8 @@ public class WindweaverController : MonoBehaviour
     private int updraftAttempts = 0;
     private int maxUpdraftAttempts = 5;
 
+    private float slowfallMultiplier = 0.1f;
+
     private PlayerController playerController;
     private CharacterController characterController;
     private PlayerWeapon playerWeapon;
