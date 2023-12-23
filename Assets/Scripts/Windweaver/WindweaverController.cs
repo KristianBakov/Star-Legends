@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class WindweaverController : MonoBehaviour
 {
+    private const float JUMP_HEIGHT_DIFF = 2.5f;
+
     public bool isDashing = false;
     public bool isThrowingSmoke = false;
+    public bool isUpdrafting = false;
 
     public int availableDashAttempts = 50;
     public float dashSpeed = 30f;
@@ -24,21 +27,35 @@ public class WindweaverController : MonoBehaviour
     private int dashAttempts = 0;
     private float dashStartTime;
 
+    private float lastTimeUpdrafted = 0;
+    private float updraftHeight = 4f;
+    private float updraftDelaySeconds = 0.2f;
+    private int updraftAttempts = 0;
+    private int maxUpdraftAttempts = 5;
+
     private PlayerController playerController;
     private CharacterController characterController;
     private PlayerWeapon playerWeapon;
+    private PlayerStats playerStats;
 
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
         playerWeapon = GetComponent<PlayerWeapon>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void Update()
     {
+        HandleSlowfall();
         HandleDash();
-        HandleSmokeFunction();
+
+        if (!isDashing)
+        {
+            HandleSmokeFunction();
+            HandleUpdraft();
+        }
     }
 
     #region Dashing
@@ -168,4 +185,54 @@ public class WindweaverController : MonoBehaviour
         currentSmokeProjectile = null;
     }
     #endregion
+
+    #region Updraft
+
+    private void HandleUpdraft()
+    {
+        bool isTryingToUpdraft = playerController.playerActions.Player.AbilityQ.triggered;
+        if(Time.time - lastTimeUpdrafted < updraftDelaySeconds)
+        {
+            if(isUpdrafting)
+            {
+                OnUpdraftEnd();
+            }
+        }
+
+        if (isTryingToUpdraft && updraftAttempts < maxUpdraftAttempts)
+        {
+            OnUpdraftStart();
+            Updraft();
+        }
+    }
+
+    private void Updraft()
+    {
+        if(!playerController.isGrounded)
+        {
+            playerController.jumpVelocity.y = Mathf.Sqrt(updraftHeight / JUMP_HEIGHT_DIFF * -2f * playerStats.gravity);
+        }
+        else
+        {
+            playerController.jumpVelocity.y = Mathf.Sqrt(updraftHeight * -2f * playerStats.gravity);
+        }
+    }
+
+    private void OnUpdraftStart()
+    {
+        isUpdrafting = true;
+        lastTimeUpdrafted = Time.time;
+        //hide gun and play updraft animations
+        updraftAttempts++;
+    }
+
+    private void OnUpdraftEnd()
+    {
+        isUpdrafting = false;
+        //show gun
+    }
+
+    #endregion
+
+
 }
