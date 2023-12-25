@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4634847698264328924
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 0
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CharmerTurretMainMatt
+  m_Shader: {fileID: -6465566751694194690, guid: ec62aa0a64e54584c8395d11574cac04,
+    type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Opaque
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SampleTexture2D_076faac07d4c4f079ab7663bc78aac70_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 62e955e89ab46194d9b23d783c4a4ce2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_335566a943984fd4b9b6043cf1679589_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 8f6a4c8c13f27a3459f6585c8a58c5b6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_422f9cfe66d44c548c0709e7ffde92d3_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 6a1e2331c9c59144188e1b647fec5bb5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_7368d321d5c64744ae057c2fa15e82a5_Texture_1:
+        m_Texture: {fileID: 2800000, guid: b030a49277f6f914a99959600df24de2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_a18a7022221f4b55927898dd5247136c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 4fb3f46ee237a4845b535a49ce9d3cf3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ccd98948990848e897df3ece7d5a6817_Texture_1:
+        m_Texture: {fileID: 2800000, guid: d6a345dde78370742b2a91dc748252b0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_d551e57e40a44b588f7c4c7e15bda707_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 2ec7c9dc9db879c44aa4f624a2907a34, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BUILTIN_AlphaClip: 0
+    - _BUILTIN_Blend: 0
+    - _BUILTIN_CullMode: 2
+    - _BUILTIN_DstBlend: 0
+    - _BUILTIN_QueueControl: 0
+    - _BUILTIN_QueueOffset: 0
+    - _BUILTIN_SrcBlend: 1
+    - _BUILTIN_Surface: 0
+    - _BUILTIN_ZTest: 4
+    - _BUILTIN_ZWrite: 1
+    - _BUILTIN_ZWriteControl: 0
+    m_Colors: []
+  m_BuildTextureStacks: []
