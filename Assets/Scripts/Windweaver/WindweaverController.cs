@@ -4,9 +4,10 @@ public class WindweaverController : MonoBehaviour
 {
     private const float JUMP_HEIGHT_DIFF = 2.5f;
 
-    public bool isDashing = false;
-    public bool isThrowingSmoke = false;
-    public bool isUpdrafting = false;
+    public bool isDashing { get; private set; } = false;
+    public bool isThrowingSmoke { get; private set; } = false;
+    public bool isUpdrafting { get; private set; } = false;
+    public bool isFalling { get; private set; } = false;
 
     public int availableDashAttempts = 50;
     public float dashSpeed = 30f;
@@ -19,6 +20,7 @@ public class WindweaverController : MonoBehaviour
     [SerializeField] ParticleSystem rightDashParticleSystem;
     [SerializeField] GameObject smokeProjectile;
     [SerializeField] Transform smokeFiringTransform;
+    [SerializeField] ParticleSystem floatingParticles;
 
     WindweaverSmokeProjectile currentSmokeProjectile;
     private float lastTimeSmokeEnded = 0f;
@@ -33,7 +35,8 @@ public class WindweaverController : MonoBehaviour
     private int updraftAttempts = 0;
     private int maxUpdraftAttempts = 5;
 
-    private float slowfallMultiplier = 0.1f;
+    private float lastJumpVelocityY = 0f;
+    private float floatingGravity = -5f;
 
     private PlayerController playerController;
     private CharacterController characterController;
@@ -42,6 +45,7 @@ public class WindweaverController : MonoBehaviour
 
     private void Start()
     {
+        floatingParticles.Stop();
         playerController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
         playerWeapon = GetComponent<PlayerWeapon>();
@@ -50,8 +54,9 @@ public class WindweaverController : MonoBehaviour
 
     private void Update()
     {
-        HandleSlowfall();
         HandleDash();
+        HandleIsFalling();
+        HandleSlowfall();
 
         if (!isDashing)
         {
@@ -236,5 +241,45 @@ public class WindweaverController : MonoBehaviour
 
     #endregion
 
+    #region Slowfall
 
+    private void HandleIsFalling()
+    {
+        if (!playerController.isGrounded &&
+            playerController.jumpVelocity.y <= 0 &&
+            playerController.jumpVelocity.y < lastJumpVelocityY)
+        {
+            isFalling = true;
+        }
+        else
+        {
+            isFalling = false;
+        }
+
+        lastJumpVelocityY = playerController.jumpVelocity.y;
+    }
+
+    private void HandleSlowfall()
+    {
+        //Debug.Log("HandleFloat");
+        bool isTryingToFloat = isFalling && playerController.playerActions.Player.Jump.ReadValue<float>() == 0 ? false : true;
+
+        if (isTryingToFloat)
+        {
+            if (floatingParticles.isStopped)
+            {
+                floatingParticles.Play();
+            }
+            playerStats.gravity = floatingGravity;
+        }
+        else
+        {
+            if (floatingParticles.isPlaying)
+            {
+                floatingParticles.Stop();
+            }
+            playerStats.gravity = playerStats.defaultGravity;
+        }
+    }
+    #endregion
 }

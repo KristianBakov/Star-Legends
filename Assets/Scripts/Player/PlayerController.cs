@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public bool isWalking { get; private set; } = false;
     public bool isJumping { get; private set; } = false;
     public bool isCrouching { get; private set; } = false;
+    public bool useGravity = true;
     public bool isCrouchingUnderObstacle { get; private set; } = false;
     public Vector3 movementVector = Vector3.zero;
     public Vector3 inputVector = Vector3.zero;
@@ -162,7 +163,10 @@ public class PlayerController : MonoBehaviour
         {
             jumpVelocity.y = Mathf.Sqrt(playerStats.jumpHeight * -2f * playerStats.gravity);
         }
-        jumpVelocity.y += playerStats.gravity * Time.deltaTime;
+        if (useGravity)
+        {
+            jumpVelocity.y += playerStats.gravity * Time.deltaTime;
+        }
         characterController.Move(jumpVelocity * Time.deltaTime);
     }
     public void SetGunRotation(Vector3 _gunRotation)
