@@ -1,3 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/AgentSelect/AgentSelectSS.uss?fileID=7433441132597879392&amp;guid=14180182236263741a90e64fb2d4155a&amp;type=3#AgentSelectSS" />
+    <ui:ListView focusable="true" />
 </ui:UXML>

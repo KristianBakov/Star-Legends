@@ -5,6 +5,7 @@ public class AgentSelectScreen : MonoBehaviour
 {
     [SerializeField] private UIDocument document;
     [SerializeField] private StyleSheet styleSheet;
+    //[SerializeField]
     void Start()
     {
         Generate();
@@ -12,13 +13,17 @@ public class AgentSelectScreen : MonoBehaviour
 
     private void OnValidate()
     {
+#if UNITY_EDITOR
         if (Application.isPlaying) return;
         Generate();
+#endif
     }
 
     private void Generate()
     {
         var root = document.rootVisualElement;
+        if (root == null) return;
+
         root.Clear();
 
         //add the stylesheet
@@ -26,8 +31,15 @@ public class AgentSelectScreen : MonoBehaviour
 
 
         var backgroundBox = UIUtils.CreateUIElement("background-box");
-        var titleLabel = UIUtils.CreateUIElement<Label>("Select Agent");
-        titleLabel.AddToClassList("title-label");
+
+        var titleLabel = UIUtils.CreateUIElement<Label>("title-label");
+        titleLabel.text = "Select Agent";
+
+        var agentSelectBox = UIUtils.CreateUIElement("agent-select-box");
+        var agentSelectListView = UIUtils.CreateUIElement<ListView>("agent-select-list-view");
+        agentSelectListView.selectionType = SelectionType.Single;
+
+        
 
         
 
