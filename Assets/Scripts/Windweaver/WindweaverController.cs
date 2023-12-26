@@ -262,10 +262,13 @@ public class WindweaverController : MonoBehaviour
     private void HandleSlowfall()
     {
         //Debug.Log("HandleFloat");
-        bool isTryingToFloat = isFalling && playerController.playerActions.Player.Jump.ReadValue<float>() == 0 ? false : true;
+        bool isTryingToFloat = isFalling && playerController.playerActions.Player.Jump.IsPressed();
+        bool test = playerController.playerActions.Player.Jump.IsPressed();
+        Debug.Log("isfalling " + isFalling + "input! " + test + "test: " + isTryingToFloat);
 
         if (isTryingToFloat)
         {
+           // Debug.Log("IsTryingToFloat");
             if (floatingParticles.isStopped)
             {
                 floatingParticles.Play();
