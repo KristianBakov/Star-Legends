@@ -35,6 +35,8 @@ public class AgentSelectScreen : MonoBehaviour
         var titleLabel = UIUtils.CreateUIElement<Label>("title-label");
         titleLabel.text = "Select Agent";
 
+        var agentSelectButton = UIUtils.CreateUIElement<AgentSelectButton>("title-label");
+
         var agentSelectBox = UIUtils.CreateUIElement("agent-select-box");
         var agentSelectListView = UIUtils.CreateUIElement<ListView>("agent-select-list-view");
         agentSelectListView.selectionType = SelectionType.Single;
@@ -45,6 +47,7 @@ public class AgentSelectScreen : MonoBehaviour
 
         root.Add(backgroundBox);
         backgroundBox.Add(titleLabel);
+       
     }
 
 

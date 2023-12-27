@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-class AgentSelectButton : MonoBehaviour
+class AgentSelectButton : Button
 {
     [SerializeField] private UIDocument document;
     [SerializeField] private StyleSheet styleSheet;
