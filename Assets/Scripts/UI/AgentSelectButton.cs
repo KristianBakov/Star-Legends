@@ -13,9 +13,7 @@ class AgentSelectButton : Button
     private void Generate()
     {
         var root = document.rootVisualElement;
-        if (root == null) return;
 
-        root.Clear();
     }
 }
 
