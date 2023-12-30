@@ -263,8 +263,6 @@ public class WindweaverController : MonoBehaviour
     {
         //Debug.Log("HandleFloat");
         bool isTryingToFloat = isFalling && playerController.playerActions.Player.Jump.IsPressed();
-        bool test = playerController.playerActions.Player.Jump.IsPressed();
-        Debug.Log("isfalling " + isFalling + "input! " + test + "test: " + isTryingToFloat);
 
         if (isTryingToFloat)
         {

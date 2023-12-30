@@ -11,18 +11,26 @@
 	padding-left: 12px;
 }
 
-.agent-select-button {
-	padding: 12px 12px 4px 4px;
-	-unity-font-definition: url("/Assets/Fonts/DINN-Regular.asset") color: #ffffff;
-	background-color: #009BBF;
-	border-radius: 0px;
-	border-width: 1px;
-	border-color: #AEAEAE;
-	border-style: solid;
-	font-size: 16px;
-	text-align: center;
+.agent-select-list-view {
+	width: 400px;
+    height: 100%;
+	background-color: #839EC9;
+
 }
 
-	.agent-select-button:hover {
-		background-color: #0089A6;
-	}
+.agent-select-button {
+	padding: 24px 12px;
+	-unity-font-definition: url("/Assets/Fonts/DINN-Regular.asset") color: #ffffff;
+	background-color: #6DB09C;
+	font-size: 24px;
+	color: #FFFFFF;
+	text-align: center;
+	border-radius: 0px;
+	border-width: 1px;
+	border-color: #FFFFFF;
+	border-style: solid;
+}
+
+.agent-select-button:hover {
+	background-color: #061621;
+}

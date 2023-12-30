@@ -36,7 +36,7 @@ public class AgentSelectScreen : MonoBehaviour
         var titleLabel = UIUtils.CreateUIElement<Label>("title-label");
         titleLabel.text = "Select Agent";
 
-        agentSelectButtonController = new AgentSelectButtonController();
+        if(agentSelectButtonController == null) agentSelectButtonController = gameObject.AddComponent<AgentSelectButtonController>();
         agentSelectButtonController.InitializeCharacterList();
 
 

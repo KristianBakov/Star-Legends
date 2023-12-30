@@ -45,9 +45,8 @@ public class AgentSelectButtonController : MonoBehaviour
         };
 
         agentSelectListView = new ListView(agentSelectButtons, 16, makeItem, bindItem);
+        agentSelectListView.AddToClassList("agent-select-list-view");
         agentSelectListView.selectionType = SelectionType.Single;
-        agentSelectListView.style.flexGrow = 1.0f;
-
     }
 
     private void OnAgentSelectButtonClick(Button agentSelectButton)
