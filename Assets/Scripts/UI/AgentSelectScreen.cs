@@ -5,6 +5,7 @@ public class AgentSelectScreen : MonoBehaviour
 {
     [SerializeField] private UIDocument document;
     [SerializeField] private StyleSheet styleSheet;
+    private AgentSelectButtonController agentSelectButtonController;
     //[SerializeField]
     void Start()
     {
@@ -35,18 +36,14 @@ public class AgentSelectScreen : MonoBehaviour
         var titleLabel = UIUtils.CreateUIElement<Label>("title-label");
         titleLabel.text = "Select Agent";
 
-        var agentSelectButton = UIUtils.CreateUIElement<AgentSelectButton>("title-label");
+        agentSelectButtonController = new AgentSelectButtonController();
+        agentSelectButtonController.InitializeCharacterList();
 
-        var agentSelectBox = UIUtils.CreateUIElement("agent-select-box");
-        var agentSelectListView = UIUtils.CreateUIElement<ListView>("agent-select-list-view");
-        agentSelectListView.selectionType = SelectionType.Single;
 
-        
-
-        
 
         root.Add(backgroundBox);
         backgroundBox.Add(titleLabel);
+        backgroundBox.Add(agentSelectButtonController.agentSelectListView);
        
     }
 
