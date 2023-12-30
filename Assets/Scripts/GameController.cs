@@ -4,5 +4,10 @@ using UnityEngine;
 
 public class GameController : MonoSingleton<GameController>
 {
-    public string test = "hello world";
+    public CursorLockMode currentCursorLockMode;
+
+    private void Start()
+    {
+        
+    }
 }

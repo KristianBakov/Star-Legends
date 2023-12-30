@@ -8212,7 +8212,9 @@ GameObject:
   - component: {fileID: 1994061480}
   - component: {fileID: 1994061479}
   - component: {fileID: 1994061481}
+  - component: {fileID: 1994061483}
   - component: {fileID: 1994061482}
+  - component: {fileID: 1994061484}
   m_Layer: 5
   m_Name: UIAgentSelect
   m_TagString: Untagged
@@ -8276,13 +8278,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1994061478}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86dde5f071a05a04db03e8be2327de83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inMenu: 1
+  agentSelectScreen: {fileID: 0}
+--- !u!114 &1994061483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994061478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db20fb3d52f4b94c8120bd5ec5d5396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentDataList:
-  - {fileID: 11400000, guid: 348037b814549c443ab7f7b0378d8d79, type: 2}
-  - {fileID: 11400000, guid: a69234e677bd1634282b6cae363d436b, type: 2}
-  agentSelectButtonTemplate: {fileID: 0}
+--- !u!114 &1994061484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994061478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db20fb3d52f4b94c8120bd5ec5d5396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2012932731
 GameObject:
   m_ObjectHideFlags: 0

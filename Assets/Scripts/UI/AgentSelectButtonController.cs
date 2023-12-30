@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Services.Analytics.Internal;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class AgentSelectButtonController : MonoBehaviour
 {
     private List<Button> agentSelectButtons;
-    public List<AgentData> agentDataList;
+    private List<AgentData> agentDataList;
     public ListView agentSelectListView;
     private Button currentlySelectedButton;
 

@@ -20,7 +20,8 @@
 
 .agent-select-button {
 	padding: 24px 12px;
-	-unity-font-definition: url("/Assets/Fonts/DINN-Regular.asset") color: #ffffff;
+	-unity-font-definition: url("/Assets/Fonts/DINN-Regular.asset");
+	color: #ffffff;
 	background-color: #6DB09C;
 	font-size: 24px;
 	color: #FFFFFF;

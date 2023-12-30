@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 public class AgentSelectScreen : MonoBehaviour
 {
-    [SerializeField] private UIDocument document;
+    [SerializeField] public UIDocument document;
     [SerializeField] private StyleSheet styleSheet;
     private AgentSelectButtonController agentSelectButtonController;
     //[SerializeField]

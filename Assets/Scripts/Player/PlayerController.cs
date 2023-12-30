@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     {
         characterController = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
-        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
