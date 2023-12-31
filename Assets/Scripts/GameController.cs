@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoSingleton<GameController>
 {
     public CursorLockMode currentCursorLockMode;
+    public PlayerStats playerStats;
 
     private void Start()
     {

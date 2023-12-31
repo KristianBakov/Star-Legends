@@ -7712,6 +7712,51 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1816869299}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1852240908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1852240910}
+  - component: {fileID: 1852240909}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1852240909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852240908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d47bf282cd571b4c90d8d3ea5694c7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyOnLoad: 1
+--- !u!4 &1852240910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852240908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.15627289, y: 3.542467, z: -1.8377445}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1887817125
 GameObject:
   m_ObjectHideFlags: 0
@@ -8212,9 +8257,10 @@ GameObject:
   - component: {fileID: 1994061480}
   - component: {fileID: 1994061479}
   - component: {fileID: 1994061481}
-  - component: {fileID: 1994061483}
   - component: {fileID: 1994061482}
   - component: {fileID: 1994061484}
+  - component: {fileID: 1994061485}
+  - component: {fileID: 1994061486}
   m_Layer: 5
   m_Name: UIAgentSelect
   m_TagString: Untagged
@@ -8281,9 +8327,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86dde5f071a05a04db03e8be2327de83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DestroyOnLoad: 1
   inMenu: 1
   agentSelectScreen: {fileID: 0}
---- !u!114 &1994061483
+--- !u!114 &1994061484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8295,7 +8342,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db20fb3d52f4b94c8120bd5ec5d5396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1994061484
+--- !u!114 &1994061485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994061478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db20fb3d52f4b94c8120bd5ec5d5396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1994061486
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

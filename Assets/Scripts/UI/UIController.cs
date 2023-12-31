@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class UIController : MonoBehaviour
+public class UIController : MonoSingleton<UIController>
 {
     public bool inMenu = true;
     public UIDocument agentSelectScreen;
@@ -34,7 +34,7 @@ public class UIController : MonoBehaviour
 
     public void HideUI()
     {
-
+        SetPanelEnableState(agentSelectScreen, false);
     }
 
 

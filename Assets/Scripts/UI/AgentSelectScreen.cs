@@ -5,8 +5,8 @@ public class AgentSelectScreen : MonoBehaviour
 {
     [SerializeField] public UIDocument document;
     [SerializeField] private StyleSheet styleSheet;
+
     private AgentSelectButtonController agentSelectButtonController;
-    //[SerializeField]
     void Start()
     {
         Generate();

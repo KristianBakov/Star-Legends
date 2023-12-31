@@ -16,5 +16,4 @@ public class AgentData : ScriptableObject
     public AgentType agentType;
     public Sprite agentImage;
     public string agentDescription;
-    //public string agentAbilities;
 }
