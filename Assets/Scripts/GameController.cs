@@ -9,6 +9,21 @@ public class GameController : MonoSingleton<GameController>
 
     private void Start()
     {
-        
+        ShowCursor();
+    }
+
+    public void HideCursor()
+    {
+        currentCursorLockMode = CursorLockMode.Locked;
+        Cursor.lockState = currentCursorLockMode;
+        Cursor.visible = false;
+        Debug.Log("Cursor lock mode " + currentCursorLockMode + "Curesor visible state: " + Cursor.visible);
+    }
+
+    public void ShowCursor()
+    {
+        currentCursorLockMode = CursorLockMode.None;
+        Cursor.lockState = currentCursorLockMode;
+        Cursor.visible = true;
     }
 }

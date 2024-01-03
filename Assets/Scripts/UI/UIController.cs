@@ -35,7 +35,7 @@ public class UIController : MonoSingleton<UIController>
     public void HideUI()
     {
         SetPanelEnableState(agentSelectScreen, false);
+        GameController.Instance.HideCursor();
     }
-
 
 }

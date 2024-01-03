@@ -10,6 +10,8 @@ public class AgentSelectScreen : MonoBehaviour
     void Start()
     {
         Generate();
+        if (agentSelectButtonController == null)
+            agentSelectButtonController = gameObject.GetComponent<AgentSelectButtonController>();
     }
 
     private void OnValidate()
@@ -17,6 +19,8 @@ public class AgentSelectScreen : MonoBehaviour
 #if UNITY_EDITOR
         if (Application.isPlaying) return;
         Generate();
+        if (agentSelectButtonController == null)
+            agentSelectButtonController = gameObject.GetComponent<AgentSelectButtonController>();
 #endif
     }
 
@@ -36,7 +40,6 @@ public class AgentSelectScreen : MonoBehaviour
         var titleLabel = UIUtils.CreateUIElement<Label>("title-label");
         titleLabel.text = "Select Agent";
 
-        if(agentSelectButtonController == null) agentSelectButtonController = gameObject.AddComponent<AgentSelectButtonController>();
         agentSelectButtonController.InitializeCharacterList();
 
 
