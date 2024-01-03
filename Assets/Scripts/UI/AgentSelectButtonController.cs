@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class AgentSelectButtonController : MonoBehaviour
+public class AgentSelectButtonController
 {
     private List<Button> agentSelectButtons;
     public ListView agentSelectListView;

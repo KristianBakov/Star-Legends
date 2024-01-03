@@ -6,12 +6,10 @@ public class AgentSelectScreen : MonoBehaviour
     [SerializeField] public UIDocument document;
     [SerializeField] private StyleSheet styleSheet;
 
-    private AgentSelectButtonController agentSelectButtonController;
+    private AgentSelectButtonController agentSelectButtonController = null;
     void Start()
     {
         Generate();
-        if (agentSelectButtonController == null)
-            agentSelectButtonController = gameObject.GetComponent<AgentSelectButtonController>();
     }
 
     private void OnValidate()
@@ -19,8 +17,6 @@ public class AgentSelectScreen : MonoBehaviour
 #if UNITY_EDITOR
         if (Application.isPlaying) return;
         Generate();
-        if (agentSelectButtonController == null)
-            agentSelectButtonController = gameObject.GetComponent<AgentSelectButtonController>();
 #endif
     }
 
@@ -40,6 +36,7 @@ public class AgentSelectScreen : MonoBehaviour
         var titleLabel = UIUtils.CreateUIElement<Label>("title-label");
         titleLabel.text = "Select Agent";
 
+        agentSelectButtonController = new AgentSelectButtonController();
         agentSelectButtonController.InitializeCharacterList();
 
 
