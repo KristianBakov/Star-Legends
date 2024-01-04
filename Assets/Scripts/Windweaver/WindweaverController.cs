@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WindweaverController : MonoBehaviour
+public class WindweaverController : MonoBehaviour, IAgentController
 {
     private const float JUMP_HEIGHT_DIFF = 2.5f;
 
@@ -281,6 +281,26 @@ public class WindweaverController : MonoBehaviour
             }
             playerStats.gravity = playerStats.defaultGravity;
         }
+    }
+
+    public void HandleAbilityQ()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void HandleAbilityC()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void HandleAbilityE()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void HandleAbilityX()
+    {
+        throw new System.NotImplementedException();
     }
     #endregion
 }
