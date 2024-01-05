@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public IA_Player playerActions;
     private PlayerStats playerStats;
     private const float shootRotationoffsetDampening = 1.2f;
+    public Agents currentAgent;
 
     private void Awake()
     {

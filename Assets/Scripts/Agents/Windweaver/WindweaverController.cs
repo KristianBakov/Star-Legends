@@ -54,14 +54,15 @@ public class WindweaverController : MonoBehaviour, IAgentController
 
     private void Update()
     {
-        HandleDash();
+
+        HandleAbilityE();
         HandleIsFalling();
         HandleSlowfall();
 
         if (!isDashing)
         {
-            HandleSmokeFunction();
-            HandleUpdraft();
+            HandleAbilityQ();
+            HandleAbilityC();
         }
     }
 
@@ -285,17 +286,17 @@ public class WindweaverController : MonoBehaviour, IAgentController
 
     public void HandleAbilityQ()
     {
-        throw new System.NotImplementedException();
+        HandleUpdraft();
     }
 
     public void HandleAbilityC()
     {
-        throw new System.NotImplementedException();
+        HandleSmokeFunction();
     }
 
     public void HandleAbilityE()
     {
-        throw new System.NotImplementedException();
+        HandleDash();
     }
 
     public void HandleAbilityX()

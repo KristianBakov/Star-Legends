@@ -24,6 +24,7 @@ public class AgentDataTable : MonoSingleton<AgentDataTable>
         {Agents.Orbcaller, "Orbcaller"},
         {Agents.Charmer, "Charmer"},
     };
+    [SerializeField] public List<IAgentController> agentControllers;
     private void OnValidate()
     {
         if(agentDataList.Count == 0)
