@@ -9,7 +9,7 @@ public class WindweaverController : MonoBehaviour, IAgentController
     public bool isUpdrafting { get; private set; } = false;
     public bool isFalling { get; private set; } = false;
 
-    public int availableDashAttempts = 50;
+    public int availableDashAttempts = 2;
     public float dashSpeed = 30f;
     public float dashDuration = 0.4f;
 

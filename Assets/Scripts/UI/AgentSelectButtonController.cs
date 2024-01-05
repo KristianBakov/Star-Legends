@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -49,6 +50,8 @@ public class AgentSelectButtonController
     {
         Debug.Log("Agent Select Button Clicked " + agentSelectButton.text);
         UIController.Instance.HideUI();
+        GameController.Instance.SetCurrentAgent(AgentDataTable.agentNameDictionary.FirstOrDefault(x => x.Value == agentSelectButton.text).Key);
+        //Debug.Log("Current Agent is " + GameController.Instance.playerController.currentAgent);
     }
 
     public void SetButtonText()
