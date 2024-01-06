@@ -13,10 +13,7 @@ public class WindweaverController : MonoBehaviour, IAgentController
     public float dashSpeed = 30f;
     public float dashDuration = 0.4f;
 
-    private Camera playerCamera;
-    private GameObject windweaverParticlesPrefab;
-    private WindweaverParticles windweaverParticles;
-
+    [SerializeField] WindweaverParticles windweaverParticles;
     [SerializeField] GameObject smokeProjectile;
     [SerializeField] Transform smokeFiringTransform;
 
@@ -36,6 +33,7 @@ public class WindweaverController : MonoBehaviour, IAgentController
     private float lastJumpVelocityY = 0f;
     private float floatingGravity = -5f;
 
+    private Camera playerCamera;
     private PlayerController playerController;
     private CharacterController characterController;
     private PlayerWeapon playerWeapon;
@@ -52,12 +50,6 @@ public class WindweaverController : MonoBehaviour, IAgentController
         {
             playerCamera = playerController.GetPlayerCamera();
         }
-
-        //get windweaver particles reference from resourtces
-        windweaverParticlesPrefab = Resources.Load<GameObject>("/Windweaver/WindweaverParticleRoot");
-        Debug.Log(windweaverParticlesPrefab);
-        windweaverParticles = windweaverParticlesPrefab.GetComponent<WindweaverParticles>();
-        Instantiate(windweaverParticlesPrefab, playerController.transform);
         windweaverParticles.floatParticleSystem.Stop();
     }
 

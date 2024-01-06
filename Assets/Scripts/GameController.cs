@@ -1,46 +1,89 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class GameController : MonoSingleton<GameController>
 {
     public CursorLockMode currentCursorLockMode;
     public PlayerStats playerStats;
     public PlayerController playerController;
+    public Agents defaultPlayerType = Agents.Windweaver;
+    private Dictionary<Agents, AsyncOperationHandle<GameObject>> playerPrefabHandles;
+    private bool firstTimeRunning = true;
 
-    private void Start()
+    private IEnumerator Start()
     {
-        //get the player controller
+        yield return Addressables.InitializeAsync();
         playerController = FindObjectOfType<PlayerController>();
-    }
-
-    public void SetCurrentAgent(Agents _agentIn)
-    {
-        if (playerController == null) return;
-        playerController.currentAgent = _agentIn;
-        AddAgentControllerScript(_agentIn);
-
-    }
-
-    private void AddAgentControllerScript(Agents _agentIn)
-    {
-        switch(_agentIn)
+        playerPrefabHandles = new Dictionary<Agents, AsyncOperationHandle<GameObject>>();
+        // Load all player prefabs asynchronously
+        foreach (Agents type in Enum.GetValues(typeof(Agents)))
         {
-            case Agents.Windweaver:
-                playerController.gameObject.AddComponent<WindweaverController>();
-                break;
-            case Agents.Firebird:
-                playerController.gameObject.AddComponent<FirebirdController>();
-                break;
-            case Agents.Earthshaper:
-                playerController.gameObject.AddComponent<EarthshaperController>();
-                break;
-            case Agents.Orbcaller:
-                playerController.gameObject.AddComponent<OrbcallerController>();
-                break;
-            case Agents.Charmer:
-                playerController.gameObject.AddComponent<CharmerController>();
-                break;
+            StartCoroutine(LoadPlayerPrefabAsync(type));
+        }
+
+    }
+
+    public override void OnDestroy()
+    {
+        // Release loaded player prefabs when the GameController is destroyed
+        foreach (var handle in playerPrefabHandles.Values)
+        {
+            if (handle.IsValid())
+            {
+                Addressables.Release(handle);
+            }
+        }
+    }
+
+    private IEnumerator LoadPlayerPrefabAsync(Agents type)
+    {
+        if(firstTimeRunning)
+        {
+            yield return new WaitForSeconds(1f);
+            firstTimeRunning = false;
+        }
+        // Load player prefab asynchronously
+        var handle = Addressables.LoadAssetAsync<GameObject>($"AgentPrefabs/{type}");
+
+        // Register a callback for when the prefab is loaded
+        handle.Completed += (operation) => OnPlayerPrefabLoaded(type, operation);
+    }
+
+    private void OnPlayerPrefabLoaded(Agents type, AsyncOperationHandle<GameObject> handle)
+    {
+        if (handle.Status == AsyncOperationStatus.Succeeded)
+        {
+            playerPrefabHandles[type] = handle;
+
+            // If the default player type is loaded, instantiate it
+            if (type == defaultPlayerType)
+            {
+                InstantiatePlayer(type);
+            }
+        }
+        else
+        {
+            Debug.LogError($"Failed to load {type.ToString()} prefab");
+        }
+    }
+
+    public void InstantiatePlayer(Agents type)
+    {
+        if (playerPrefabHandles.ContainsKey(type) && playerPrefabHandles[type].IsValid())
+        {
+            // Instantiate player prefab and set it as a child of the playerPrefabContainer
+            GameObject playerPrefab = Instantiate(playerPrefabHandles[type].Result, playerController.transform);
+            // You may want to add the specific player controller script here if needed
+
+            // Other player setup code...
+        }
+        else
+        {
+            Debug.LogError($"Player prefab for {type.ToString()} is not loaded");
         }
     }
 

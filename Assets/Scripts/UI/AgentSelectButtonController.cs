@@ -50,7 +50,7 @@ public class AgentSelectButtonController
     {
         Debug.Log("Agent Select Button Clicked " + agentSelectButton.text);
         UIController.Instance.HideUI();
-        GameController.Instance.SetCurrentAgent(AgentDataTable.agentNameDictionary.FirstOrDefault(x => x.Value == agentSelectButton.text).Key);
+        GameController.Instance.InstantiatePlayer(AgentDataTable.agentNameDictionary.FirstOrDefault(x => x.Value == agentSelectButton.text).Key);
         //Debug.Log("Current Agent is " + GameController.Instance.playerController.currentAgent);
     }
 

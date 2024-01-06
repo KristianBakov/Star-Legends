@@ -74,7 +74,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
         }
     }
 
-    protected virtual void OnDestroy()
+    public virtual void OnDestroy()
     {
         if (instance == this)
         {

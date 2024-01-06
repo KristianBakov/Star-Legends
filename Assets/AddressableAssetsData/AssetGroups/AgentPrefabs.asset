@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: AgentPrefabs
+  m_EditorClassIdentifier: 
+  m_GroupName: AgentPrefabs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f93762df878465f4f9f5d7a9f3b35f2b
+  m_SerializeEntries:
+  - m_GUID: e0f30edde2dc7d1439da3799f50b3bb8
+    m_Address: Charmer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Charmer
+  - m_GUID: 543c96b8cd083a849808d48e6b8b1642
+    m_Address: Earthshaper
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Earthshaper
+  - m_GUID: d34d3f5741cf1c1439cf932e7c8a62ce
+    m_Address: Firebird
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Firebird
+  - m_GUID: 6bc814a7bbf8de04c9261e171153446c
+    m_Address: Orbcaller
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Orbcaller
+  - m_GUID: e0e67bfc73a139f47928988098b504e5
+    m_Address: Windweaver
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Windweaver
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f7c39a2cda9e50440a07a1f36b352747, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7902b9689d5345b4f95c0a407c562d11, type: 2}
+    - {fileID: 11400000, guid: 67f5e82daed1cd241a0c91ce9761e46c, type: 2}
