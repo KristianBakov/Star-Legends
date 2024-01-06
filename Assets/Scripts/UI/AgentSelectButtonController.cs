@@ -48,10 +48,9 @@ public class AgentSelectButtonController
 
     private void OnAgentSelectButtonClick(Button agentSelectButton)
     {
-        Debug.Log("Agent Select Button Clicked " + agentSelectButton.text);
+        Debug.Log("Selected agent: " + agentSelectButton.text);
         UIController.Instance.HideUI();
         GameController.Instance.InstantiatePlayer(AgentDataTable.agentNameDictionary.FirstOrDefault(x => x.Value == agentSelectButton.text).Key);
-        //Debug.Log("Current Agent is " + GameController.Instance.playerController.currentAgent);
     }
 
     public void SetButtonText()
