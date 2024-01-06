@@ -8,20 +8,22 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class GameController : MonoSingleton<GameController>
 {
     public CursorLockMode currentCursorLockMode;
-    public PlayerStats playerStats;
-    public Agents defaultPlayerType = Agents.Windweaver;
     private Dictionary<Agents, AsyncOperationHandle<GameObject>> playerPrefabHandles;
 
     private IEnumerator Start()
     {
         yield return Addressables.InitializeAsync();
+        LoadPlayerAddressables();
+    }
+
+    private void LoadPlayerAddressables()
+    {
         playerPrefabHandles = new Dictionary<Agents, AsyncOperationHandle<GameObject>>();
         // Load all player prefabs asynchronously
         foreach (Agents type in Enum.GetValues(typeof(Agents)))
         {
             LoadPlayerPrefabAsync(type);
         }
-
     }
 
     public override void OnDestroy()
@@ -49,6 +51,7 @@ public class GameController : MonoSingleton<GameController>
     {
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
+            //add the loaded prefab to the dictionary
             playerPrefabHandles[type] = handle;
         }
         else
@@ -61,11 +64,12 @@ public class GameController : MonoSingleton<GameController>
     {
         if (playerPrefabHandles.ContainsKey(type) && playerPrefabHandles[type].IsValid())
         {
+            //player prefab reference
             GameObject playerPrefab = Instantiate(playerPrefabHandles[type].Result);
         }
         else
         {
-            Debug.LogError($"Player prefab for {type.ToString()} is not loaded");
+            Debug.LogError($"Player prefab for {type} is not loaded");
         }
     }
 
