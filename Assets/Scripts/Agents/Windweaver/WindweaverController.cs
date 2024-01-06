@@ -13,14 +13,12 @@ public class WindweaverController : MonoBehaviour, IAgentController
     public float dashSpeed = 30f;
     public float dashDuration = 0.4f;
 
-    [SerializeField] Camera playerCamera;
-    [SerializeField] ParticleSystem forwardDashParticleSystem;
-    [SerializeField] ParticleSystem backwardDashParticleSystem;
-    [SerializeField] ParticleSystem leftDashParticleSystem;
-    [SerializeField] ParticleSystem rightDashParticleSystem;
+    private Camera playerCamera;
+    private GameObject windweaverParticlesPrefab;
+    private WindweaverParticles windweaverParticles;
+
     [SerializeField] GameObject smokeProjectile;
     [SerializeField] Transform smokeFiringTransform;
-    [SerializeField] ParticleSystem floatingParticles;
 
     WindweaverSmokeProjectile currentSmokeProjectile;
     private float lastTimeSmokeEnded = 0f;
@@ -43,13 +41,24 @@ public class WindweaverController : MonoBehaviour, IAgentController
     private PlayerWeapon playerWeapon;
     private PlayerStats playerStats;
 
-    private void Start()
+    private void Awake()
     {
-        floatingParticles.Stop();
         playerController = GetComponent<PlayerController>();
         characterController = GetComponent<CharacterController>();
         playerWeapon = GetComponent<PlayerWeapon>();
         playerStats = GetComponent<PlayerStats>();
+
+        if(playerController != null)
+        {
+            playerCamera = playerController.GetPlayerCamera();
+        }
+
+        //get windweaver particles reference from resourtces
+        windweaverParticlesPrefab = Resources.Load<GameObject>("/Windweaver/WindweaverParticleRoot");
+        Debug.Log(windweaverParticlesPrefab);
+        windweaverParticles = windweaverParticlesPrefab.GetComponent<WindweaverParticles>();
+        Instantiate(windweaverParticlesPrefab, playerController.transform);
+        windweaverParticles.floatParticleSystem.Stop();
     }
 
     private void Update()
@@ -122,31 +131,31 @@ public class WindweaverController : MonoBehaviour, IAgentController
         if (inputVector.y > 0 && Mathf.Abs(inputVector.x) <= inputVector.y)
         {
             //forward & forward diagonals
-            forwardDashParticleSystem.Play();
+            windweaverParticles.forwardDashParticleSystem.Play();
             return;
         }
 
         if (inputVector.y < 0 && Mathf.Abs(inputVector.x) <= Mathf.Abs(inputVector.y))
         {
             //backward & backward diagonals
-            backwardDashParticleSystem.Play();
+            windweaverParticles.backwardDashParticleSystem.Play();
             return;
         }
 
         if(inputVector.x > 0)
         {
-            rightDashParticleSystem.Play();
+            windweaverParticles.rightDashParticleSystem.Play();
             return;
         }
 
         if(inputVector.x < 0)
         {
-            leftDashParticleSystem.Play();
+            windweaverParticles.leftDashParticleSystem.Play();
             return;
         }
 
         //defaulting to forward
-        forwardDashParticleSystem.Play();
+        windweaverParticles.forwardDashParticleSystem.Play();
     }
     #endregion
 
@@ -268,17 +277,17 @@ public class WindweaverController : MonoBehaviour, IAgentController
         if (isTryingToFloat)
         {
            // Debug.Log("IsTryingToFloat");
-            if (floatingParticles.isStopped)
+            if (windweaverParticles.floatParticleSystem.isStopped)
             {
-                floatingParticles.Play();
+                windweaverParticles.floatParticleSystem.Play();
             }
             playerStats.gravity = floatingGravity;
         }
         else
         {
-            if (floatingParticles.isPlaying)
+            if (windweaverParticles.floatParticleSystem.isPlaying)
             {
-                floatingParticles.Stop();
+                windweaverParticles.floatParticleSystem.Stop();
             }
             playerStats.gravity = playerStats.defaultGravity;
         }

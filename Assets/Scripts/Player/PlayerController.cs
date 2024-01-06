@@ -185,5 +185,10 @@ public class PlayerController : MonoBehaviour
         playerActions.Player.Disable();
     }
 
+    public Camera GetPlayerCamera()
+    {
+        return PlayerCamera;
+    }
+
 
 }
